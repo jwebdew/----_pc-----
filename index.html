@@ -1,0 +1,354 @@
+<!DOCTYPE html>
+<html lang="ko">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>레이아웃</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        li {
+            list-style: none;
+        }
+
+        a {
+            text-decoration: none;
+            color: inherit;
+        }
+
+        body {
+            line-height: 1;
+            color: #333;
+        }
+
+        header {
+            height: 100px;
+        }
+        header.on {
+            width: 100%;
+            height: 70px;
+            position: fixed;
+            top: 0;
+            left: 0;
+            background-color: #ffffff8c;
+            backdrop-filter: blur(7px);
+        }
+        header .inner {
+            width: calc(100% - 200px);
+            height: 100%;
+            margin: 0 auto;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+        }
+        header .inner .menu span {
+            width: 30px;
+            height: 3px;
+            background-color: #333;
+            display: block;
+            margin: 3px 0;
+        }
+        header nav {
+            position: fixed;
+            left: -100%;
+            top: 0;
+            width: 80%;
+            height: 100vh;
+            background-color: #333333;
+            color: #fff;
+            font-size: 30px;
+             padding: 0 100px;
+            box-sizing: border-box;
+        }
+        header nav .menu_close {
+            font-size: 20px;
+            line-height: 100px;
+        }
+        header nav .gnb .depth01 > a {
+            display: block;
+            padding: 50px 5px;
+            border-bottom: 1px solid #fff;
+        }
+        header nav .gnb .depth01 .depth02 {
+            display: none;
+        }
+        header nav .gnb .depth01 .depth02 li {
+            font-size: 20px;
+            padding: 20px 5px;
+        }
+        header .menu_open {
+
+        }
+        header .menu_close {
+            display: flex;
+            justify-content: flex-end;
+            padding-top: 40px;
+        }
+        .main_visual {
+            height: calc(100vh - 100px);
+        }
+        .main_visual img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+        }
+        .cont .title {
+            margin: 100px 100px 40px;
+        }
+        .cont .title h3 {
+            font-size: 60px;
+            
+        }
+        .cont .title p {
+            font-size: 25px;
+            line-height: 1.3;
+            margin-top: 20px;
+
+        }
+        .cont .inner {
+            /* width: 1440px; */
+            /* margin: 100px auto; */
+            display: flex;
+            border: 1px solid #333;
+            
+        }
+        .cont .tab_menu {
+            width: 50%;
+            
+        }
+        .cont .tab_menu li {
+            height: calc(100% / 4);
+            border-bottom: 1px solid #333;  
+            display: flex;
+            align-items: center; 
+            padding-left: 100px;
+            font-size: 22px;
+            cursor: pointer;
+            transition: background-color 0.5s;
+        }
+        .cont .tab_menu li:hover {
+            background-color: #ffcc00;
+        }
+        .cont .tab_menu li.on {
+            background-color: #ffcc00;
+        }
+        .cont .tab_menu li:last-child {
+            border: 0;
+        }
+        .cont .tab_menu li:hover a {
+            text-decoration: underline;
+        }
+        .cont .tab_cont {
+            width: 50%; 
+            text-align: center;
+        }
+        .cont .tab_cont .item {
+            border-left: 1px solid #333;
+            padding: 30px;
+            display: none;
+        }
+        .cont .tab_cont .item.on {
+            display: block;
+        }
+        .cont .tab_cont img {
+            width: 100%;
+            height: 600px;
+            object-fit: cover;
+        }
+        .cont .tab_cont .item div {
+            margin-top: 40px;
+            text-align: left;
+        }
+        .cont .tab_cont .item div h4 {
+            font-size: 40px;
+            margin-bottom: 10px;
+        }
+        footer {
+            background-color: #333;
+            color: #fff;
+            padding: 60px 0;
+            font-size: 20px;
+            text-align: center;
+        }
+    </style>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.7.1/jquery.min.js" integrity="sha512-v2CJ7UaYy4JwqLDIrZUI/4hqeoQieOmAZNXBeQyjo21dadnwR+8ZaIJVT8EE2iyI61OV8e6M8PP2/4hpQINQ/g==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
+    <script>
+        $(function(){
+            //🔔header
+            ///header menu
+            $('.menu_open').click(function(){
+                $('nav').animate({
+                    'left' : '0'
+                }, 700)
+            })
+            $('.menu_close').click(function(){
+                $('nav').animate({
+                    'left' : '-100%'
+                }, 700)
+            })
+
+            $('.depth01 > a').click(function(){
+                if($(this).next().css('display') == 'none') {
+                    $('.depth02').slideUp()
+                    $(this).next().slideDown();
+                } else {
+                    $('.depth02').slideUp()
+                }
+            });
+
+            //scroll 
+            let headerTop = $('header').offset().top;
+
+            $(window).scroll(function(){
+                let scrollBar =  $(window).scrollTop();
+                if(headerTop < scrollBar){
+                    $('header').addClass('on')
+                } else {
+                    $('header').removeClass('on')
+                }
+            });
+
+            //🔔cont
+            //tab menu
+
+            $('.tab_menu li').click(function(){
+               
+                $('.tab_menu li').removeClass('on');
+                $(this).addClass('on')
+                $('.cont .item').removeClass('on')
+                $('.cont .item').eq($(this).index()).addClass('on')
+            })
+
+        })
+    </script>
+</head>
+
+<body>
+    <div class="wrap">
+        <header>
+            <div class="inner">
+                <h1>
+                    <a href="#">💎</a>
+                </h1>
+                <div class="menu_open">
+                    <img src="img/menu_open.png" alt="메뉴보기" />
+                </div>
+                <nav>
+                <div class="menu_close">
+                    <img src="img/menu_close_w.png" alt="메뉴닫기" />
+                </div>
+
+                    <ul class="gnb">
+                        <li class="depth01">
+                            <a href="#">menu1</a>
+                            <ul class="depth02">
+                                <li><a href="#">menu1-1</a></li>
+                                <li><a href="#">menu1-2</a></li>
+                                <li><a href="#">menu1-3</a></li>
+                            </ul><!-- .depth02 end -->
+                        </li> <!-- depth01 end -->
+
+                        <li class="depth01">
+                            <a href="#">menu2</a>
+                            <ul class="depth02">
+                                <li><a href="#">menu2-1</a></li>
+                                <li><a href="#">menu2-2</a></li>
+                                <li><a href="#">menu2-3</a></li>
+                            </ul><!-- .depth02 end -->
+                        </li> <!-- depth01 end -->
+
+                        <li class="depth01">
+                            <a href="#">menu3</a>
+                            <ul class="depth02">
+                                <li><a href="#">menu3-1</a></li>
+                                <li><a href="#">menu3-2</a></li>
+                                <li><a href="#">menu3-3</a></li>
+                            </ul><!-- .depth02 end -->
+                        </li> <!-- depth01 end -->
+
+                        <li class="depth01">
+                            <a href="#">menu4</a>
+                            <ul class="depth02">
+                                <li><a href="#">menu4-1</a></li>
+                                <li><a href="#">menu4-2</a></li>
+                                <li><a href="#">menu4-3</a></li>
+                            </ul><!-- .depth02 end -->
+                        </li> <!-- depth01 end -->
+
+                    </ul><!-- .gnb end -->
+                </nav>
+            </div>
+        </header>
+        <main>
+            <section class="main_visual">
+                <img src="img/nature2.jpg" alt="">
+            </section><!-- .main_visual end -->
+            <section class="cont">
+                <div class="title">
+                    <h3>BEST PRODUCT</h3>
+                    <p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Nisi, tempora deserunt tempore debitis cupiditate molestias accusantium eum animi eos corporis similique impedit libero magnam dolore sunt suscipit. Provident, nulla vero.</p>
+                </div><!-- .title -->
+                
+                <div class="inner">
+                    <ul class="tab_menu">
+                        <li class="on"><a href="#">Photoshop</a></li>
+                        <li><a href="#">Illstrator</a></li>
+                        <li><a href="#">Figma</a></li>
+                        <li><a href="#">Sketch</a></li>
+                    </ul><!-- .tab_menu end -->
+    
+                    <div class="tab_cont">
+                        <div class="item on">
+                            <img src="img/magazine_01.jpg" alt="">
+                            <div class="text">
+                                <h4>title</h4>
+                                <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Distinctio repellendus aliquid
+                                    sequi quae nihil magnam, quod ipsum architecto inventore beatae quasi molestias minus
+                                    ducimus delectus, dicta magni nesciunt voluptate iusto!</p>
+                            </div><!-- .text end -->
+                        </div><!-- .item end -->
+    
+                        <div class="item">
+                            <img src="img/magazine_02.jpg" alt="">
+                            <div class="text">
+                                <h4>title</h4>
+                                <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Distinctio repellendus aliquid
+                                    sequi quae nihil magnam, quod ipsum architecto inventore beatae quasi molestias minus
+                                    ducimus delectus, dicta magni nesciunt voluptate iusto!</p>
+                            </div><!-- .text end -->
+                        </div><!-- .item end -->
+    
+                        <div class="item">
+                            <img src="img/magazine_03.jpg" alt="">
+                            <div class="text">
+                                <h4>title</h4>
+                                <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Distinctio repellendus aliquid
+                                    sequi quae nihil magnam, quod ipsum architecto inventore beatae quasi molestias minus
+                                    ducimus delectus, dicta magni nesciunt voluptate iusto!</p>
+                            </div><!-- .text end -->
+                        </div><!-- .item end -->
+    
+                        <div class="item">
+                            <img src="img/magazine_01.jpg" alt="">
+                            <div class="text">
+                                <h4>title</h4>
+                                <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Distinctio repellendus aliquid
+                                    sequi quae nihil magnam, quod ipsum architecto inventore beatae quasi molestias minus
+                                    ducimus delectus, dicta magni nesciunt voluptate iusto!</p>
+                            </div><!-- .text end -->
+                        </div><!-- .item end -->
+                    </div>
+                </div><!-- .inner end -->
+                
+            </section><!-- .cont end -->
+        </main>
+        <footer>copyright 😎sujeong</footer>
+    </div><!-- .wrap end -->
+</body>
+
+</html>
